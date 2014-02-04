@@ -11,3 +11,12 @@
 *.lai
 *.la
 *.a
+
+Debug
+Release
+x64
+*.psess
+*.suo
+*.sdf
+*.vcxproj.filters
+*.vcxproj.user
