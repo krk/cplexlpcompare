@@ -5,16 +5,16 @@ Compares two LP files created in cplex format and dumps differences to files.
 
 Requirements
 ============
-CMake - Used to generates sln files on Windows and makefiles on Linux.
-Boost - Used to access files using memory mapping.
+* CMake - Used to generates sln files on Windows and makefiles on Linux.
+* Boost - Used to access files using memory mapping.
 
 
 CMake must be able to find the address-mode that Boost was built, 32-bit or 64-bit, that corresponds to the CMake generator.
 
 Tested On
 =========
-Win x86-64 MSVS 2013
-Win x86-32 MSVS 2013
+* Win x86-64 MSVS 2013
+* Win x86-32 MSVS 2013
 
 Usage
 =====
