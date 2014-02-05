@@ -123,9 +123,9 @@ int main(int argc, char *argv [])
 {
 	INIT_TIMER;
 
-	setup_options(argc, argv);
-
 	cout << "lpcompare: Compares two LP files created in cplex format and dumps differences to files." << endl;
+
+	setup_options(argc, argv);
 
 	LPModel* model1 = new LPModel();
 	LPModel* model2 = new LPModel();
