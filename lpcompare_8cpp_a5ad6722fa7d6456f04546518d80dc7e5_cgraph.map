@@ -1,0 +1,5 @@
+<map id="printCounts" name="printCounts">
+<area shape="rect" id="node2" href="$lpcompare_8cpp.html#abac5534bcf9154dab9334d849215920e" title="Dumps diffs to a file if dumping is requested. " alt="" coords="141,31,288,57"/>
+<area shape="rect" id="node3" href="$lpcompare_8cpp.html#ac9a0e1f1d4cbbe5d22f91e7bb3148fb9" title="Checks if diff dumps are requested. " alt="" coords="337,5,495,32"/>
+<area shape="rect" id="node4" href="$lpcompare_8cpp.html#adeb440ce3dee274e2ec2bc7bd4e3d35c" title="Creates a filename to dump differences into. " alt="" coords="349,56,483,83"/>
+</map>
