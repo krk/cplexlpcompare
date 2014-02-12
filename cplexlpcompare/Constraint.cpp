@@ -32,11 +32,22 @@
 #include <bitset>
 #include <string>
 
+/**
+\file Constraint.cpp
+Defines Constraint class.
+*/
+
 using namespace boost;
 using namespace boost::algorithm;
 
 namespace lpcompare {
 
+	/**
+	Finds a ConstraintOp representation for the string op.
+
+	\param op Operation to find ConstraintOp for.
+	\return A ConstraintOp representing the operation.
+	*/
 	ConstraintOp get_constraintop(std::string op) {
 		if (op == "=")
 			return ConstraintOp::EQ;
@@ -52,6 +63,12 @@ namespace lpcompare {
 		return ConstraintOp::EQ;
 	}
 
+	/**
+	Finds a string representation for the ConstraintOp.
+
+	\param op Operation to find string for.
+	\return A string representing the ConstraintOp.
+	*/
 	std::string get_constraintop(ConstraintOp op) {
 		if (op == ConstraintOp::EQ)
 			return "=";
@@ -67,11 +84,13 @@ namespace lpcompare {
 		return "=";
 	}
 
-	bool is_empty(const std::string & s)
-	{
-		return s.size() == 0;
-	}
+	/**
+	Splits a string into a vector.
 
+	\param s String to split.
+	\param d Delimiter array.
+	\param ret Splitted string.
+	*/
 	void custom_split(std::string & s, char const* d, std::vector<std::string>& ret)
 	{
 		std::vector<std::string> output;
@@ -108,6 +127,12 @@ namespace lpcompare {
 		output.swap(ret);
 	}
 
+	/**
+	Parses a line of the LP file representing a Constraint.
+
+	\param line Single line of an LP file.
+	\return A Constraint instance representing line.
+	*/
 	Constraint *Constraint::Parse(std::string& line){
 
 		Constraint *ret = new Constraint();
@@ -186,6 +211,12 @@ namespace lpcompare {
 		return ret;
 	}
 
+	/**
+	Compares two Constraint instances for equality.
+
+	\param other Other instance to compare self to.
+	\return true if Constraint instances are equivalent.
+	*/
 	bool Constraint::operator==(const Constraint &other) const {
 		bool eq = other.Sign == Sign;
 		eq = eq && other.RHS == RHS;
@@ -194,10 +225,23 @@ namespace lpcompare {
 		return eq;
 	}
 
+	/**
+	Compares two Constraint instances for equality.
+
+	\param other Other instance to compare self to.
+	\return true if Constraint instances are not equivalent.
+	*/
 	bool Constraint::operator!=(const Constraint &other) const {
 		return !(*this == other);
 	}
 
+	/**
+	Returns an integer rank representing a ConstraintOp. Equivalent 
+	ConstraintOp instances have the same rank.
+
+	\param op ConstraintOp to find rank of.
+	\return An integer rank.
+	*/
 	int get_constraintop_val(ConstraintOp op) {
 		if (op == ConstraintOp::EQ)
 			return 0;
@@ -209,6 +253,12 @@ namespace lpcompare {
 		return 0;
 	}
 
+	/**
+	Compares two Constraint instances.
+
+	\param other Other instance to compare self to.
+	\return true if self is less than other.
+	*/
 	bool Constraint::operator<(const Constraint &other) const {
 
 		auto sign = get_constraintop_val(Sign);
@@ -236,6 +286,11 @@ namespace lpcompare {
 		return true;
 	}
 
+	/**
+	Dumps a Constraint instance to an ostream in a text format.
+	\param cons Constraint to dump.
+	\param out
+	*/
 	void Constraint::dump(const Constraint &cons, std::ostream &out) {
 
 		out << " Name: " << cons.Name << std::endl;

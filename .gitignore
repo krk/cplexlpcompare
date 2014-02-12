@@ -21,3 +21,4 @@ build
 *.sdf
 *.vcxproj.filters
 *.vcxproj.user
+doxygen

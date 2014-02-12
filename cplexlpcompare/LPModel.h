@@ -38,8 +38,13 @@
 
 namespace lpcompare {
 
-	const char SEPS [] = { ' ' };
-	const char SEPS_CONS [] = { ' ', '\t', '\n', '\r' };
+	/**
+	\class LPModel
+	Represents an LP model composed of a bounds, constraints and variables of different kinds.
+	*/
+
+	const char SEPS [] = { ' ' };  /**< Delimiter for bounds. */
+	const char SEPS_CONS [] = { ' ', '\t', '\n', '\r' };  /**< Delimiter for constraints. */
 
 	class LPModel {
 
@@ -55,16 +60,17 @@ namespace lpcompare {
 		std::string* ReadBounds(std::istream &file);
 		std::string* ReadConstraints(std::istream &file);
 
-		void CompareModels(LPModel* model, LPModel* other);
+		long linesRead = 0; /**< Counter for lines read. */
 
-		long lineCount = 0;
-
+		/**
+		Increases linesRead counter by one. Prints linesRead to std::cout every million lines.
+		*/
 		void IncLineCount()
 		{
-			lineCount++;
+			linesRead++;
 
-			if (lineCount % 1000000 == 0) {
-				std::cout << "Lines read: " << lineCount << std::endl;
+			if (linesRead % 1000000 == 0) {
+				std::cout << "Lines read: " << linesRead << std::endl;
 			}
 		}
 

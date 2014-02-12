@@ -32,6 +32,11 @@
 
 namespace lpcompare {
 
+	/**
+	\class Constraint
+	Represents a constraint composed of terms, a sign and a right-hand side.
+	*/
+
 	enum class ConstraintOp;
 	class Constraint;
 
@@ -45,7 +50,7 @@ namespace lpcompare {
 	};
 
 	class Constraint{
-		ConstraintOp Sign;
+		ConstraintOp Sign; /**< Sign (operator) of the constraint. */
 		double RHS;
 		std::vector<Term> Terms;
 	public:

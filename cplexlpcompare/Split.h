@@ -37,30 +37,65 @@
 
 #include <boost/algorithm/string.hpp>
 
-std::set<std::string> &split(
+/**
+\file Split.h
+Defines static string split functions.
+*/
+
+static std::set<std::string> &split(
 	const std::string &s,
 	char delim,
 	std::set<std::string> &elems,
-	std::function<bool(const std::string&)> predicate);
+	std::function<bool(const std::string&)> predicate) {
 
-std::set<std::string> &split(const std::string &s, char delim, std::set<std::string> &elems);
+	std::stringstream ss(s);
+	std::string item;
+	while (std::getline(ss, item, delim)) {
+		if (predicate == nullptr || predicate(item))
+			elems.insert(item);
+	}
+	return elems;
+}
 
-std::vector<std::string> split(const std::string &s, char delim);
+static std::set<std::string> &split(const std::string &s, char delim, std::set<std::string> &elems) {
+	return split(s, delim, elems, nullptr);
+}
 
-std::vector<std::string> &split(
+static std::vector<std::string> &split(
 	const std::string &s,
 	char delim,
 	std::vector<std::string> &elems,
-	std::function<bool(const std::string&)> predicate);
+	std::function<bool(const std::string&)> predicate) {
 
-std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems);
+	std::stringstream ss(s);
+	std::string item;
+	while (std::getline(ss, item, delim)) {
+		if (predicate == nullptr || predicate(item))
+			elems.push_back(item);
+	}
+	return elems;
+}
 
-std::vector<std::string> &split(
+static std::vector<std::string> &split(
 	std::string &s,
 	std::string delims,
 	std::vector<std::string> &elems,
-	std::function<bool(const std::string&)> predicate);
+	std::function<bool(const std::string&)> predicate) {
 
-//void custom_split(std::string const& s, char const* d, std::vector<std::string>& ret);
+	boost::trim_if(s, boost::is_any_of(delims));
+	boost::split(elems, s, boost::is_any_of(delims));
+
+	return elems;
+}
+
+static std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {
+	return split(s, delim, elems, nullptr);
+}
+
+static std::vector<std::string> split(const std::string &s, char delim) {
+	std::vector<std::string> elems;
+	split(s, delim, elems);
+	return elems;
+}
 
 #endif // SPLIT_H

@@ -40,6 +40,11 @@
 
 #include "Split.h"
 
+/**
+\file LPModel.cpp
+Defines LPModel class.
+*/
+
 using std::ifstream;
 using std::cout;
 using std::getline;
@@ -47,6 +52,12 @@ using namespace boost::algorithm;
 
 namespace lpcompare {
 
+	/**
+	Parses an LP file to build an LPModel instance.
+
+	\param filename Filename to read data from.
+	\return true model is read successfully.
+	*/
 	bool LPModel::ReadModel(std::string filename) {
 		
 		if (!boost::filesystem::exists(filename)) {
@@ -65,7 +76,7 @@ namespace lpcompare {
 		bool reconsider;
 
 		getline(file, *line);
-		lineCount = 0;
+		linesRead = 0;
 		while (!file.eof()){
 			reconsider = false;
 
@@ -116,6 +127,14 @@ namespace lpcompare {
 		return true;
 	}
 
+	/**
+	Parses an LP file segment for variables.
+
+	\param file istream to read data from.
+	\param list List to add parsed variables to.
+	\param operation Operation to parse a line and add artifacts to the list.
+	\return last line read.
+	*/
 	template<typename T, typename F>
 	std::string* LPModel::ReadVars(
 		std::istream &file,
@@ -148,6 +167,12 @@ namespace lpcompare {
 		return line;
 	}
 
+	/**
+	Parses an LP file segment for Generals.
+
+	\param file istream to read data from.
+	\return last line read.
+	*/
 	std::string* LPModel::ReadGenerals(std::istream &file) {
 
 		return ReadVars(file, Generals, [](const std::string& line, std::vector<std::string>& list) {
@@ -155,6 +180,12 @@ namespace lpcompare {
 		});
 	}
 
+	/**
+	Parses an LP file segment for Binaries.
+
+	\param file istream to read data from.
+	\return last line read.
+	*/
 	std::string* LPModel::ReadBinaries(std::istream &file) {
 
 		return ReadVars(file, Binaries, [](const std::string& line, std::vector<std::string>& list) {
@@ -162,6 +193,12 @@ namespace lpcompare {
 		});
 	}
 
+	/**
+	Parses an LP file segment for SOS variables.
+
+	\param file istream to read data from.
+	\return last line read.
+	*/
 	std::string* LPModel::ReadSosVars(std::istream &file) {
 
 		return ReadVars(file, SosVars, [](const std::string& line, std::vector<std::string>& list) {
@@ -169,6 +206,12 @@ namespace lpcompare {
 		});
 	}
 
+	/**
+	Parses an LP file segment for bounds.
+
+	\param file istream to read data from.
+	\return last line read.
+	*/
 	std::string* LPModel::ReadBounds(std::istream &file) {
 
 		return ReadVars(file, Bounds, [](const std::string& line, std::vector<Bound>& list) {
@@ -184,6 +227,12 @@ namespace lpcompare {
 		});
 	}
 
+	/**
+	Parses an LP file segment for constraints.
+
+	\param file istream to read data from.
+	\return last line read.
+	*/
 	std::string* LPModel::ReadConstraints(std::istream &file) {
 
 		std::string* line = new std::string();
@@ -224,7 +273,7 @@ namespace lpcompare {
 
 				consraws.clear();
 				//consraws = std::vector<std::string>();
-				consraws.reserve(10);
+				consraws.reserve(10); // most of the time is lost while allocating and destructing consraws vector.
 			}
 
 			consraws.push_back(*line);

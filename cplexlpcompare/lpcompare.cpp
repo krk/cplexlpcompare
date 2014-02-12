@@ -51,30 +51,41 @@ using std::cout;
 using std::endl;
 using lpcompare::LPModel;
 
+/**
+\file lpcompare.cpp
+Handles command line arguments and has the main method.
+*/
+
 namespace po = boost::program_options;
 
 template <typename T>
-void printCounts(std::string name, std::vector<T> &vec, std::vector<T> &other);
+void printCounts(std::string detail_name, std::vector<T> &vec, std::vector<T> &vecother);
 
 template <>
-void printCounts(std::string name, std::vector<lpcompare::Bound> &vec, std::vector<lpcompare::Bound> &vecother);
+void printCounts(std::string detail_name, std::vector<lpcompare::Bound> &vec, std::vector<lpcompare::Bound> &vecother);
 
 template <>
-void printCounts(std::string name, std::vector<lpcompare::Constraint> &vec, std::vector<lpcompare::Constraint> &vecother);
+void printCounts(std::string detail_name, std::vector<lpcompare::Constraint> &vec, std::vector<lpcompare::Constraint> &vecother);
 
 template <typename T>
-void printCountsWithSort(std::string name, std::vector<T> &vec, std::vector<T> &vecother);
+void printCountsWithSort(std::string detail_name, std::vector<T> &vec, std::vector<T> &vecother);
 
 void printStats(LPModel *model);
 
 template <typename T>
-void dumpdiff_if_requested(std::string name, std::vector<T> &set1Except2, std::vector<T> &set2Except1);
+void dumpdiff_if_requested(std::string detail_name, std::vector<T> &set1Except2, std::vector<T> &set2Except1);
 
-std::string first_filename;
-std::string second_filename;
+std::string first_filename;  /**< Filename of the first LP model. */
+std::string second_filename; /**< Filename of the second LP model. */
 
-po::variables_map vm;
+po::variables_map vm; /**< Variable map for boost::program_options. */
 
+/**
+Parses program arguments using boost program_options.
+
+\param argc argument count.
+\param argv argument list.
+*/
 void setup_options(int argc, char *argv []) {
 
 	po::positional_options_description p;
@@ -111,10 +122,22 @@ void setup_options(int argc, char *argv []) {
 	}
 }
 
+/**
+Creates a filename to dump differences into.
+
+\param model Model name.
+\param detail Model detail.
+\return dump filename.
+*/
 std::string get_dump_filename(std::string model, std::string detail) {
 	return vm["dump-prefix"].as<std::string>() + "-" + model + "-" + detail + ".log";
 }
 
+/**
+Checks if diff dumps are requested.
+
+\return true if diff dumps are requested.
+*/
 bool is_diffdumps_requested() {
 	return vm["dump-diffs"].as<bool>();
 }
@@ -169,6 +192,11 @@ int main(int argc, char *argv [])
 	return 0;
 }
 
+/**
+Prints statistics for a model.
+
+\param model Model.
+*/
 void printStats(LPModel *model) {
 	cout << "Binaries: " << model->Binaries.size() << endl;
 	cout << "Bounds: " << model->Bounds.size() << endl;
@@ -177,15 +205,21 @@ void printStats(LPModel *model) {
 	cout << "SosVars: " << model->SosVars.size() << endl;
 }
 
+/**
+Dumps diffs to a file if dumping is requested.
+
+\param set1Except2 List of elements that are in the first model but not in the second model.
+\param set2Except1 List of elements that are in the second model but not in the first model.
+*/
 template <typename T>
-void dumpdiff_if_requested(std::string name, std::vector<T> &set1Except2, std::vector<T> &set2Except1) {
+void dumpdiff_if_requested(std::string detail_name, std::vector<T> &set1Except2, std::vector<T> &set2Except1) {
 
 	if (!is_diffdumps_requested())
 		return;
 
 	if (set1Except2.size() > 0) {
 
-		auto filename1e2 = get_dump_filename("firstEXCEPTsecond", name);
+		auto filename1e2 = get_dump_filename("firstEXCEPTsecond", detail_name);
 		std::ofstream out_file_1(filename1e2);
 
 		if (!out_file_1) {
@@ -193,7 +227,7 @@ void dumpdiff_if_requested(std::string name, std::vector<T> &set1Except2, std::v
 			return;
 		}
 
-		out_file_1 << "firstEXCEPTsecond " << name << std::endl;
+		out_file_1 << "firstEXCEPTsecond " << detail_name << std::endl;
 		for (auto item : set1Except2) {
 			out_file_1 << item << std::endl;
 		}
@@ -201,12 +235,12 @@ void dumpdiff_if_requested(std::string name, std::vector<T> &set1Except2, std::v
 		out_file_1.flush();
 		out_file_1.close();
 
-		cout << "firstEXCEPTsecond diff written for " << name << " to " << filename1e2 << std::endl;
+		cout << "firstEXCEPTsecond diff written for " << detail_name << " to " << filename1e2 << std::endl;
 	}
 
 	if (set2Except1.size() > 0) {
 
-		auto filename2e1 = get_dump_filename("secondEXCEPTfirst", name);
+		auto filename2e1 = get_dump_filename("secondEXCEPTfirst", detail_name);
 		std::ofstream out_file_2(filename2e1);
 
 		if (!out_file_2) {
@@ -214,7 +248,7 @@ void dumpdiff_if_requested(std::string name, std::vector<T> &set1Except2, std::v
 			return;
 		}
 
-		out_file_2 << "secondEXCEPTfirst " << name << std::endl;
+		out_file_2 << "secondEXCEPTfirst " << detail_name << std::endl;
 		for (auto item : set2Except1) {
 			out_file_2 << item << std::endl;
 		}
@@ -222,37 +256,50 @@ void dumpdiff_if_requested(std::string name, std::vector<T> &set1Except2, std::v
 		out_file_2.flush();
 		out_file_2.close();
 
-		cout << "secondEXCEPTfirst diff written for " << name << " to " << filename2e1 << std::endl;
+		cout << "secondEXCEPTfirst diff written for " << detail_name << " to " << filename2e1 << std::endl;
 	}
 }
 
+/**
+Prints count of a given detail for both models, including differences.
 
+\param detail_name Given name of the detail.
+\param vec List of elements that are in the first model.
+\param vecother List of elements that are in the second model.
+*/
 template <typename T>
-void printCounts(std::string name, std::vector<T> &vec, std::vector<T> &other)
+void printCounts(std::string detail_name, std::vector<T> &vec, std::vector<T> &vecother)
 {
-	cout << name << " First Model: " << vec.size() << endl;
-	cout << name << " Second Model: " << other.size() << endl;
+	cout << detail_name << " First Model: " << vec.size() << endl;
+	cout << detail_name << " Second Model: " << vecother.size() << endl;
 
 	std::vector<T> set1Except2;
-	std::set_difference(vec.begin(), vec.end(), other.begin(), other.end(), std::back_inserter(set1Except2));
+	std::set_difference(vec.begin(), vec.end(), vecother.begin(), vecother.end(), std::back_inserter(set1Except2));
 
 	std::vector<T> set2Except1;
-	std::set_difference(other.begin(), other.end(), vec.begin(), vec.end(), std::back_inserter(set2Except1));
+	std::set_difference(vecother.begin(), vecother.end(), vec.begin(), vec.end(), std::back_inserter(set2Except1));
 
 	auto size1e2 = set1Except2.size();
 	auto size2e1 = set1Except2.size();
 
 	if (size1e2 == 0 && size2e1 == 0) {
-		cout << name << " are equivalent." << endl;
+		cout << detail_name << " are equivalent." << endl;
 	}
 	else {
-		cout << name << " First except Second: " << set1Except2.size() << endl;
-		cout << name << " Second except First: " << set2Except1.size() << endl;
+		cout << detail_name << " First except Second: " << set1Except2.size() << endl;
+		cout << detail_name << " Second except First: " << set2Except1.size() << endl;
 	}
 
-	dumpdiff_if_requested(name, set1Except2, set2Except1);
+	dumpdiff_if_requested(detail_name, set1Except2, set2Except1);
 }
 
+/**
+Prints count of a given detail for both models, including differences.
+Performs in-place sorting of vec and vecother.
+\param detail_name Given name of the detail.
+\param vec List of elements that are in the first model.
+\param vecother List of elements that are in the second model.
+*/
 template <typename T>
 void printCountsWithSort(std::string name, std::vector<T> &vec, std::vector<T> &vecother)
 {
@@ -313,15 +360,28 @@ void printCountsWithSort(std::string name, std::vector<T> &vec, std::vector<T> &
 	dumpdiff_if_requested(name, set1Except2, set2Except1);
 }
 
+/**
+printCounts specialization for Constraints, which will be sorted before set operations.
 
+\param detail_name Given name of the detail.
+\param vec List of elements that are in the first model.
+\param vecother List of elements that are in the second model.
+*/
 template <>
-void printCounts(std::string name, std::vector<lpcompare::Constraint> &vec, std::vector<lpcompare::Constraint> &vecother)
+void printCounts(std::string detail_name, std::vector<lpcompare::Constraint> &vec, std::vector<lpcompare::Constraint> &vecother)
 {
-	printCountsWithSort(name, vec, vecother);
+	printCountsWithSort(detail_name, vec, vecother);
 }
 
+/**
+printCounts specialization for Bounds, which will be sorted before set operations.
+
+\param detail_name Given name of the detail.
+\param vec List of elements that are in the first model.
+\param vecother List of elements that are in the second model.
+*/
 template <>
-void printCounts(std::string name, std::vector<lpcompare::Bound> &vec, std::vector<lpcompare::Bound> &vecother)
+void printCounts(std::string detail_name, std::vector<lpcompare::Bound> &vec, std::vector<lpcompare::Bound> &vecother)
 {
-	printCountsWithSort(name, vec, vecother);
+	printCountsWithSort(detail_name, vec, vecother);
 }
