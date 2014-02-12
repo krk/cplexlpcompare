@@ -31,6 +31,11 @@
 
 namespace lpcompare {
 
+	/**
+	\class Term
+	Represents a term composed of a coefficient and a variable.
+	*/
+
 	class Term{
 	public:
 		double coeff;

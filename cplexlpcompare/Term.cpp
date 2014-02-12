@@ -25,17 +25,40 @@
 
 #include "Term.h"
 
+/**
+\file Term.cpp
+Defines Term class.
+*/
+
 namespace lpcompare {
 
+	/**
+	Compares two Term instances for equality.
+
+	\param other Other instance to compare self to.
+	\return true if Term instances are equivalent.
+	*/
 	bool Term::operator==(const Term &other) const {
 		return other.coeff == coeff
 			&& other.varName == varName;
 	}
 
+	/**
+	Compares two Term instances for equality.
+
+	\param other Other instance to compare self to.
+	\return true if Term instances are not equivalent.
+	*/
 	bool Term::operator!=(const Term &other) const {
 		return !(*this == other);
 	}
 
+	/**
+	Compares two Term instances.
+
+	\param other Other instance to compare self to.
+	\return true if self is less than other.
+	*/
 	bool Term::operator<(const Term &other) const {
 		return coeff < other.coeff
 			|| (coeff == other.coeff && varName < other.varName);

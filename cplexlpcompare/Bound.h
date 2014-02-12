@@ -30,7 +30,12 @@
 
 namespace lpcompare {
 
-#define INFTY (1e+21f)
+	/**
+	\class Bound
+	Represents a bound of a variable.
+	*/
+
+#define INFTY (1e+21f) 
 
 	enum class BoundOp;
 	class Bound;

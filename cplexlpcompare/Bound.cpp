@@ -29,12 +29,23 @@
 #include <boost/regex.hpp>
 #include <boost\algorithm\string.hpp>
 
+/**
+\file Bound.cpp
+Implements Bound class.
+*/
+
 using namespace boost;
 
 namespace lpcompare {
 
 	regex re_varname("[a-zA-Z!\"#$%&\\(\\)/,;?@_`'{}|~][a-zA-Z0-9!\"#$%&\\(\\)/,;?@_`'{}|~.]*");
 
+	/**
+	 Inverts a BoundOp operation.
+
+	 \param op Operation to find inverse of.
+	 \return A BoundOp representing the inverted operation.
+	 */
 	BoundOp invert(BoundOp op) {
 		switch (op){
 		case BoundOp::GT:
@@ -49,6 +60,12 @@ namespace lpcompare {
 		return BoundOp::Free;
 	}
 
+	/**
+	 Finds a BoundOp representation for the string op.
+
+	 \param op Operation to find BoundOp for.
+	 \return A BoundOp representing the operation.
+	 */
 	BoundOp get_boundop(std::string op) {
 		if (op == "=")
 			return BoundOp::EQ;
@@ -66,6 +83,13 @@ namespace lpcompare {
 		return BoundOp::Free;
 	}
 
+
+	/**
+	 Finds a string representation for the BoundOp.
+
+	 \param op Operation to find string for.
+	 \return A string representing the BoundOp.
+	 */
 	std::string get_boundop(BoundOp op) {
 		if (op == BoundOp::EQ)
 			return "=";
@@ -83,6 +107,12 @@ namespace lpcompare {
 		return "Free";
 	}
 
+	/**
+	Compares two Bound instances for equality.
+
+	\param other Other instance to compare self to.
+	\return true if Bound instances are equivalent.
+	*/
 	bool Bound::operator==(const Bound &other) const {
 		return other.VarName == VarName
 			&& other.LB == LB
@@ -91,6 +121,12 @@ namespace lpcompare {
 			&& other.UB_Op == UB_Op;
 	}
 
+	/**
+	 Compares two Bound instances.
+
+	 \param other Other instance to compare self to.
+	 \return true if self is less than other.
+	 */
 	bool Bound::operator<(const Bound &other) const {
 		if (VarName > other.VarName)
 			return false;
@@ -113,10 +149,22 @@ namespace lpcompare {
 		return true;
 	}
 
+	/**
+	 Compares two Bound instances for inequality.
+
+	 \param other Other instance to compare self to.
+	 \return true if Bound instances are not equivalent.
+	 */
 	bool Bound::operator!=(const Bound &other) const {
 		return !(*this == other);
 	}
 
+	/**
+	 Parses a line of the LP file representing a Bound.
+
+	 \param line Single line of an LP file.
+	 \return A Bound instance representing line.
+	 */
 	Bound *Bound::Parse(std::string line){
 
 		Bound *ret = new Bound();
@@ -178,6 +226,11 @@ namespace lpcompare {
 		return ret;
 	}
 
+	/**
+	 Dumps a Bound instance to an ostream in a text format.
+	 \param bound Bound to dump.
+	 \param out
+	 */
 	void Bound::dump(const Bound &bound, std::ostream &out) {
 
 		out << bound.LB << " " << get_boundop(bound.LB_Op) << " ";
