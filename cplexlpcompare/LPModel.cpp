@@ -40,7 +40,11 @@
 
 #include "Split.h"
 
+<<<<<<< HEAD
 /**
+=======
+/**
+>>>>>>> b3453556442115329716c81baeca8cd9870697e7
 \file LPModel.cpp
 Defines LPModel class.
 */
@@ -52,11 +56,19 @@ using namespace boost::algorithm;
 
 namespace lpcompare {
 
+<<<<<<< HEAD
 	/**
 	Parses an LP file to build an LPModel instance.
 
 	\param filename Filename to read data from.
 	\return true model is read successfully.
+=======
+	/**
+	Parses an LP file to build an LPModel instance.
+
+	\param filename Filename to read data from.
+	\return true model is read successfully.
+>>>>>>> b3453556442115329716c81baeca8cd9870697e7
 	*/
 	bool LPModel::ReadModel(std::string filename) {
 		
@@ -127,6 +139,7 @@ namespace lpcompare {
 		return true;
 	}
 
+<<<<<<< HEAD
 	/**
 	Parses an LP file segment for variables.
 
@@ -134,6 +147,15 @@ namespace lpcompare {
 	\param list List to add parsed variables to.
 	\param operation Operation to parse a line and add artifacts to the list.
 	\return last line read.
+=======
+	/**
+	Parses an LP file segment for variables.
+
+	\param file istream to read data from.
+	\param list List to add parsed variables to.
+	\param operation Operation to parse a line and add artifacts to the list.
+	\return last line read.
+>>>>>>> b3453556442115329716c81baeca8cd9870697e7
 	*/
 	template<typename T, typename F>
 	std::string* LPModel::ReadVars(
@@ -167,11 +189,19 @@ namespace lpcompare {
 		return line;
 	}
 
+<<<<<<< HEAD
 	/**
 	Parses an LP file segment for Generals.
 
 	\param file istream to read data from.
 	\return last line read.
+=======
+	/**
+	Parses an LP file segment for Generals.
+
+	\param file istream to read data from.
+	\return last line read.
+>>>>>>> b3453556442115329716c81baeca8cd9870697e7
 	*/
 	std::string* LPModel::ReadGenerals(std::istream &file) {
 
@@ -180,11 +210,19 @@ namespace lpcompare {
 		});
 	}
 
+<<<<<<< HEAD
 	/**
 	Parses an LP file segment for Binaries.
 
 	\param file istream to read data from.
 	\return last line read.
+=======
+	/**
+	Parses an LP file segment for Binaries.
+
+	\param file istream to read data from.
+	\return last line read.
+>>>>>>> b3453556442115329716c81baeca8cd9870697e7
 	*/
 	std::string* LPModel::ReadBinaries(std::istream &file) {
 
@@ -193,11 +231,19 @@ namespace lpcompare {
 		});
 	}
 
+<<<<<<< HEAD
 	/**
 	Parses an LP file segment for SOS variables.
 
 	\param file istream to read data from.
 	\return last line read.
+=======
+	/**
+	Parses an LP file segment for SOS variables.
+
+	\param file istream to read data from.
+	\return last line read.
+>>>>>>> b3453556442115329716c81baeca8cd9870697e7
 	*/
 	std::string* LPModel::ReadSosVars(std::istream &file) {
 
@@ -206,11 +252,19 @@ namespace lpcompare {
 		});
 	}
 
+<<<<<<< HEAD
 	/**
 	Parses an LP file segment for bounds.
 
 	\param file istream to read data from.
 	\return last line read.
+=======
+	/**
+	Parses an LP file segment for bounds.
+
+	\param file istream to read data from.
+	\return last line read.
+>>>>>>> b3453556442115329716c81baeca8cd9870697e7
 	*/
 	std::string* LPModel::ReadBounds(std::istream &file) {
 
@@ -227,11 +281,19 @@ namespace lpcompare {
 		});
 	}
 
+<<<<<<< HEAD
 	/**
 	Parses an LP file segment for constraints.
 
 	\param file istream to read data from.
 	\return last line read.
+=======
+	/**
+	Parses an LP file segment for constraints.
+
+	\param file istream to read data from.
+	\return last line read.
+>>>>>>> b3453556442115329716c81baeca8cd9870697e7
 	*/
 	std::string* LPModel::ReadConstraints(std::istream &file) {
 
