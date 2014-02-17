@@ -1,5 +1,5 @@
 
-add_executable (cplexlpcompare lpcompare.cpp Bound.cpp Constraint.cpp LPModel.cpp Split.cpp Term.cpp) 
+add_executable (cplexlpcompare lpcompare.cpp Bound.cpp Constraint.cpp LPModel.cpp Term.cpp) 
 
 set(Boost_USE_STATIC_LIBS ON) 
 set(Boost_USE_MULTITHREADED ON)  

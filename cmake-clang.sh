@@ -1,3 +1,3 @@
-#! /bin/sh
+#! /bin/bash
 
-cmake -DCMAKE_USER_MAKE_RULES_OVERRIDE=./ClangOverrides.txt -D_CMAKE_TOOLCHAIN_PREFIX=llvm- .
+cmake -DCMAKE_USER_MAKE_RULES_OVERRIDE=./ClangOverrides.txt -DCMAKE_TOOLCHAIN_PREFIX=llvm- .

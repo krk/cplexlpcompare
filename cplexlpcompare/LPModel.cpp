@@ -32,11 +32,11 @@
 #include <sstream>
 #include <functional>
 #include <algorithm>
-#include <boost\iostreams\stream.hpp>
-#include <boost\iostreams\stream_buffer.hpp>
-#include <boost\iostreams\device\mapped_file.hpp>
-#include <boost\algorithm\string.hpp>
-#include <boost\filesystem.hpp>
+#include <boost/iostreams/stream.hpp>
+#include <boost/iostreams/stream_buffer.hpp>
+#include <boost/iostreams/device/mapped_file.hpp>
+#include <boost/algorithm/string.hpp>
+#include <boost/filesystem.hpp>
 
 #include "Split.h"
 

@@ -60,7 +60,7 @@ namespace lpcompare {
 
 		std::string VarName;
 
-		Bound() : LB(0), UB(INFTY), LB_Op(BoundOp::LTE), UB_Op(BoundOp::LTE) {}
+		Bound() : UB_Op(BoundOp::LTE), LB_Op(BoundOp::LTE), LB(0), UB(INFTY) {}
 		static Bound *Parse(std::string line);
 		bool operator==(const Bound &other) const;
 		bool operator<(const Bound &other) const;

@@ -27,7 +27,7 @@
 #include "Split.h"
 #include <boost/lexical_cast.hpp>
 #include <boost/regex.hpp>
-#include <boost\algorithm\string.hpp>
+#include <boost/algorithm/string.hpp>
 
 /**
 \file Bound.cpp
@@ -55,9 +55,10 @@ namespace lpcompare {
 		case BoundOp::LT:
 		case BoundOp::LTE:
 			return BoundOp::GTE;
+                
+        default:
+                return BoundOp::Free;
 		}
-
-		return BoundOp::Free;
 	}
 
 	/**

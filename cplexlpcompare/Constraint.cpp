@@ -27,7 +27,7 @@
 #include "Split.h"
 #include <boost/lexical_cast.hpp>
 #include <boost/regex.hpp>
-#include <boost\algorithm\string.hpp>
+#include <boost/algorithm/string.hpp>
 
 #include <bitset>
 #include <string>
@@ -121,8 +121,10 @@ namespace lpcompare {
 				in_token = true;
 			}
 		}
-		if (in_token)
-			output.push_back(std::vector<std::string>::value_type(beg, s.end()));
+		if (in_token){
+            iter end = s.end();
+			output.push_back(std::vector<std::string>::value_type(beg, end));
+        }
 
 		output.swap(ret);
 	}
@@ -198,9 +200,6 @@ namespace lpcompare {
 		}
 
 		std::sort(ret->Terms.begin(), ret->Terms.end());
-
-		auto op = ConstraintOp::EQ;
-		double rhs = 0;
 
 		auto opstr = parts[parts.size() - 2];
 		auto rhsstr = parts[parts.size() - 1];
