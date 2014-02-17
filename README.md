@@ -15,7 +15,8 @@ Tested On
 =========
 * Win x86-64 MSVS 2013
 * Win x86-32 MSVS 2013
-
+* OS X x86-64 Apple clang 5.0
+ 
 Usage
 =====
 ```
