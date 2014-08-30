@@ -32,11 +32,7 @@
 #include <bitset>
 #include <string>
 
-<<<<<<< HEAD
 /**
-=======
-/**
->>>>>>> b3453556442115329716c81baeca8cd9870697e7
 \file Constraint.cpp
 Defines Constraint class.
 */
@@ -46,19 +42,11 @@ using namespace boost::algorithm;
 
 namespace lpcompare {
 
-<<<<<<< HEAD
 	/**
 	Finds a ConstraintOp representation for the string op.
 
 	\param op Operation to find ConstraintOp for.
 	\return A ConstraintOp representing the operation.
-=======
-	/**
-	Finds a ConstraintOp representation for the string op.
-
-	\param op Operation to find ConstraintOp for.
-	\return A ConstraintOp representing the operation.
->>>>>>> b3453556442115329716c81baeca8cd9870697e7
 	*/
 	ConstraintOp get_constraintop(std::string op) {
 		if (op == "=")
@@ -75,19 +63,11 @@ namespace lpcompare {
 		return ConstraintOp::EQ;
 	}
 
-<<<<<<< HEAD
 	/**
 	Finds a string representation for the ConstraintOp.
 
 	\param op Operation to find string for.
 	\return A string representing the ConstraintOp.
-=======
-	/**
-	Finds a string representation for the ConstraintOp.
-
-	\param op Operation to find string for.
-	\return A string representing the ConstraintOp.
->>>>>>> b3453556442115329716c81baeca8cd9870697e7
 	*/
 	std::string get_constraintop(ConstraintOp op) {
 		if (op == ConstraintOp::EQ)
@@ -104,21 +84,12 @@ namespace lpcompare {
 		return "=";
 	}
 
-<<<<<<< HEAD
 	/**
 	Splits a string into a vector.
 
 	\param s String to split.
 	\param d Delimiter array.
 	\param ret Splitted string.
-=======
-	/**
-	Splits a string into a vector.
-
-	\param s String to split.
-	\param d Delimiter array.
-	\param ret Splitted string.
->>>>>>> b3453556442115329716c81baeca8cd9870697e7
 	*/
 	void custom_split(std::string & s, char const* d, std::vector<std::string>& ret)
 	{
@@ -158,19 +129,11 @@ namespace lpcompare {
 		output.swap(ret);
 	}
 
-<<<<<<< HEAD
 	/**
 	Parses a line of the LP file representing a Constraint.
 
 	\param line Single line of an LP file.
 	\return A Constraint instance representing line.
-=======
-	/**
-	Parses a line of the LP file representing a Constraint.
-
-	\param line Single line of an LP file.
-	\return A Constraint instance representing line.
->>>>>>> b3453556442115329716c81baeca8cd9870697e7
 	*/
 	Constraint *Constraint::Parse(std::string& line){
 
@@ -247,19 +210,11 @@ namespace lpcompare {
 		return ret;
 	}
 
-<<<<<<< HEAD
 	/**
 	Compares two Constraint instances for equality.
 
 	\param other Other instance to compare self to.
 	\return true if Constraint instances are equivalent.
-=======
-	/**
-	Compares two Constraint instances for equality.
-
-	\param other Other instance to compare self to.
-	\return true if Constraint instances are equivalent.
->>>>>>> b3453556442115329716c81baeca8cd9870697e7
 	*/
 	bool Constraint::operator==(const Constraint &other) const {
 		bool eq = other.Sign == Sign;
@@ -269,39 +224,22 @@ namespace lpcompare {
 		return eq;
 	}
 
-<<<<<<< HEAD
 	/**
 	Compares two Constraint instances for equality.
 
 	\param other Other instance to compare self to.
 	\return true if Constraint instances are not equivalent.
-=======
-	/**
-	Compares two Constraint instances for equality.
-
-	\param other Other instance to compare self to.
-	\return true if Constraint instances are not equivalent.
->>>>>>> b3453556442115329716c81baeca8cd9870697e7
 	*/
 	bool Constraint::operator!=(const Constraint &other) const {
 		return !(*this == other);
 	}
 
-<<<<<<< HEAD
 	/**
 	Returns an integer rank representing a ConstraintOp. Equivalent 
 	ConstraintOp instances have the same rank.
 
 	\param op ConstraintOp to find rank of.
 	\return An integer rank.
-=======
-	/**
-	Returns an integer rank representing a ConstraintOp. Equivalent 
-	ConstraintOp instances have the same rank.
-
-	\param op ConstraintOp to find rank of.
-	\return An integer rank.
->>>>>>> b3453556442115329716c81baeca8cd9870697e7
 	*/
 	int get_constraintop_val(ConstraintOp op) {
 		if (op == ConstraintOp::EQ)
@@ -314,19 +252,11 @@ namespace lpcompare {
 		return 0;
 	}
 
-<<<<<<< HEAD
 	/**
 	Compares two Constraint instances.
 
 	\param other Other instance to compare self to.
 	\return true if self is less than other.
-=======
-	/**
-	Compares two Constraint instances.
-
-	\param other Other instance to compare self to.
-	\return true if self is less than other.
->>>>>>> b3453556442115329716c81baeca8cd9870697e7
 	*/
 	bool Constraint::operator<(const Constraint &other) const {
 
@@ -355,17 +285,10 @@ namespace lpcompare {
 		return true;
 	}
 
-<<<<<<< HEAD
 	/**
 	Dumps a Constraint instance to an ostream in a text format.
 	\param cons Constraint to dump.
 	\param out
-=======
-	/**
-	Dumps a Constraint instance to an ostream in a text format.
-	\param cons Constraint to dump.
-	\param out
->>>>>>> b3453556442115329716c81baeca8cd9870697e7
 	*/
 	void Constraint::dump(const Constraint &cons, std::ostream &out) {
 

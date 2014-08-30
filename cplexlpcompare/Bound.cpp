@@ -45,19 +45,11 @@ namespace lpcompare {
 
 	regex re_varname("[a-zA-Z!\"#$%&\\(\\)/,;?@_`'{}|~][a-zA-Z0-9!\"#$%&\\(\\)/,;?@_`'{}|~.]*");
 
-<<<<<<< HEAD
 	/**
 	 Inverts a BoundOp operation.
 
 	 \param op Operation to find inverse of.
 	 \return A BoundOp representing the inverted operation.
-=======
-	/**
-	 Inverts a BoundOp operation.
-
-	 \param op Operation to find inverse of.
-	 \return A BoundOp representing the inverted operation.
->>>>>>> b3453556442115329716c81baeca8cd9870697e7
 	 */
 	BoundOp invert(BoundOp op) {
 		switch (op){
@@ -74,19 +66,11 @@ namespace lpcompare {
 		}
 	}
 
-<<<<<<< HEAD
 	/**
 	 Finds a BoundOp representation for the string op.
 
 	 \param op Operation to find BoundOp for.
 	 \return A BoundOp representing the operation.
-=======
-	/**
-	 Finds a BoundOp representation for the string op.
-
-	 \param op Operation to find BoundOp for.
-	 \return A BoundOp representing the operation.
->>>>>>> b3453556442115329716c81baeca8cd9870697e7
 	 */
 	BoundOp get_boundop(std::string op) {
 		if (op == "=")
@@ -106,19 +90,11 @@ namespace lpcompare {
 	}
 
 
-<<<<<<< HEAD
 	/**
 	 Finds a string representation for the BoundOp.
 
 	 \param op Operation to find string for.
 	 \return A string representing the BoundOp.
-=======
-	/**
-	 Finds a string representation for the BoundOp.
-
-	 \param op Operation to find string for.
-	 \return A string representing the BoundOp.
->>>>>>> b3453556442115329716c81baeca8cd9870697e7
 	 */
 	std::string get_boundop(BoundOp op) {
 		if (op == BoundOp::EQ)
@@ -137,19 +113,11 @@ namespace lpcompare {
 		return "Free";
 	}
 
-<<<<<<< HEAD
 	/**
 	Compares two Bound instances for equality.
 
 	\param other Other instance to compare self to.
 	\return true if Bound instances are equivalent.
-=======
-	/**
-	Compares two Bound instances for equality.
-
-	\param other Other instance to compare self to.
-	\return true if Bound instances are equivalent.
->>>>>>> b3453556442115329716c81baeca8cd9870697e7
 	*/
 	bool Bound::operator==(const Bound &other) const {
 		return other.VarName == VarName
@@ -159,19 +127,11 @@ namespace lpcompare {
 			&& other.UB_Op == UB_Op;
 	}
 
-<<<<<<< HEAD
 	/**
 	 Compares two Bound instances.
 
 	 \param other Other instance to compare self to.
 	 \return true if self is less than other.
-=======
-	/**
-	 Compares two Bound instances.
-
-	 \param other Other instance to compare self to.
-	 \return true if self is less than other.
->>>>>>> b3453556442115329716c81baeca8cd9870697e7
 	 */
 	bool Bound::operator<(const Bound &other) const {
 		if (VarName > other.VarName)
@@ -195,37 +155,21 @@ namespace lpcompare {
 		return true;
 	}
 
-<<<<<<< HEAD
 	/**
 	 Compares two Bound instances for inequality.
 
 	 \param other Other instance to compare self to.
 	 \return true if Bound instances are not equivalent.
-=======
-	/**
-	 Compares two Bound instances for inequality.
-
-	 \param other Other instance to compare self to.
-	 \return true if Bound instances are not equivalent.
->>>>>>> b3453556442115329716c81baeca8cd9870697e7
 	 */
 	bool Bound::operator!=(const Bound &other) const {
 		return !(*this == other);
 	}
 
-<<<<<<< HEAD
 	/**
 	 Parses a line of the LP file representing a Bound.
 
 	 \param line Single line of an LP file.
 	 \return A Bound instance representing line.
-=======
-	/**
-	 Parses a line of the LP file representing a Bound.
-
-	 \param line Single line of an LP file.
-	 \return A Bound instance representing line.
->>>>>>> b3453556442115329716c81baeca8cd9870697e7
 	 */
 	Bound *Bound::Parse(std::string line){
 
@@ -288,17 +232,10 @@ namespace lpcompare {
 		return ret;
 	}
 
-<<<<<<< HEAD
 	/**
 	 Dumps a Bound instance to an ostream in a text format.
 	 \param bound Bound to dump.
 	 \param out
-=======
-	/**
-	 Dumps a Bound instance to an ostream in a text format.
-	 \param bound Bound to dump.
-	 \param out
->>>>>>> b3453556442115329716c81baeca8cd9870697e7
 	 */
 	void Bound::dump(const Bound &bound, std::ostream &out) {
 
