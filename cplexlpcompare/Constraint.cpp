@@ -122,9 +122,9 @@ namespace lpcompare {
 			}
 		}
 		if (in_token){
-            iter end = s.end();
+			iter end = s.end();
 			output.push_back(std::vector<std::string>::value_type(beg, end));
-        }
+		}
 
 		output.swap(ret);
 	}
@@ -163,7 +163,7 @@ namespace lpcompare {
 				auto term = new Term();
 				term->varName = name;
 				term->coeff = opChar == '+' ? coeff : -coeff;
-				ret->Terms.push_back(*term);
+				ret->Terms->push_back(*term);
 
 				name = "";
 				opChar = '+';
@@ -192,14 +192,14 @@ namespace lpcompare {
 			auto term = new Term();
 			term->varName = name;
 			term->coeff = opChar == '+' ? coeff : -coeff;
-			ret->Terms.push_back(*term);
+			ret->Terms->push_back(*term);
 
 			name = "";
 			opChar = '+';
 			coeff = 1;
 		}
 
-		std::sort(ret->Terms.begin(), ret->Terms.end());
+		std::sort(ret->Terms->begin(), ret->Terms->end());
 
 		auto opstr = parts[parts.size() - 2];
 		auto rhsstr = parts[parts.size() - 1];
@@ -219,8 +219,8 @@ namespace lpcompare {
 	bool Constraint::operator==(const Constraint &other) const {
 		bool eq = other.Sign == Sign;
 		eq = eq && other.RHS == RHS;
-		eq = eq && other.Terms.size() == Terms.size();
-		eq = eq && std::equal(other.Terms.begin(), other.Terms.end(), Terms.begin());
+		eq = eq && other.Terms->size() == Terms->size();
+		eq = eq && std::equal(other.Terms->begin(), other.Terms->end(), Terms->begin());
 		return eq;
 	}
 
@@ -235,7 +235,7 @@ namespace lpcompare {
 	}
 
 	/**
-	Returns an integer rank representing a ConstraintOp. Equivalent 
+	Returns an integer rank representing a ConstraintOp. Equivalent
 	ConstraintOp instances have the same rank.
 
 	\param op ConstraintOp to find rank of.
@@ -265,20 +265,40 @@ namespace lpcompare {
 
 		if (sign > sign_other)
 			return false;
+		else if (sign < sign_other)
+			return true;
 
 		if (sign_other == sign && RHS > other.RHS)
 			return false;
+		else if (RHS < other.RHS)
+			return true;
 
-		if (sign_other == sign && other.RHS == RHS && Terms.size() > other.Terms.size())
+		if (sign_other == sign && other.RHS == RHS && Terms->size() > other.Terms->size())
 			return false;
+		else if (Terms->size() < other.Terms->size())
+			return true;
 
 		/* Terms assumed sorted. */
-		if (sign_other == sign && RHS == other.RHS && Terms.size() == other.Terms.size()) {
-			for (auto it = Terms.begin(), it2 = other.Terms.begin(); it != Terms.end() && it2 != other.Terms.end(); ++it, ++it2) {
+		if (sign_other == sign && RHS == other.RHS && Terms->size() == other.Terms->size()) {
+
+			bool is_equal_sofar = true;
+			for (auto it = Terms->begin(), it2 = other.Terms->begin();
+				is_equal_sofar && it != Terms->end() && it2 != other.Terms->end(); ++it, ++it2) {
+
+				if (*it2 != *it)
+					is_equal_sofar = false;
+
+				if (*it < *it2)
+					return true;
+
 				if (*it2 < *it)
 					return false;
 			}
+
+			if (is_equal_sofar)
+				return false;
 		}
+
 		if (other == *this)
 			return false;
 
@@ -295,7 +315,7 @@ namespace lpcompare {
 		out << " Name: " << cons.Name << std::endl;
 		out << "  " << cons.RHS << " " << get_constraintop(cons.Sign) << std::endl;
 
-		for (auto term : cons.Terms) {
+		for (auto term : *cons.Terms) {
 			out << "  " << term.coeff << " * " << term.varName << std::endl;
 		}
 

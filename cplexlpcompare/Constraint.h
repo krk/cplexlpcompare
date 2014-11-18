@@ -52,9 +52,36 @@ namespace lpcompare {
 	class Constraint{
 		ConstraintOp Sign; /**< Sign (operator) of the constraint. */
 		double RHS;
-		std::vector<Term> Terms;
+		std::vector<Term> *Terms;
 	public:
 		std::string Name;
+
+		Constraint() 
+		{
+			Terms = new std::vector<Term>();
+		}
+
+		Constraint(Constraint&& other)
+			: Terms(nullptr)
+		{
+			Sign = other.Sign;
+			RHS = other.RHS;
+			Terms = other.Terms;
+		}
+
+		Constraint& operator=(Constraint&& other)
+		{
+			if (this != &other)
+			{
+				Sign = other.Sign;
+				RHS = other.RHS;
+				Terms = other.Terms;
+
+				other.Terms = nullptr;
+			}
+
+			return *this;
+		}
 
 		static Constraint *Parse(std::string& line);
 		bool operator==(const Constraint &other) const;
