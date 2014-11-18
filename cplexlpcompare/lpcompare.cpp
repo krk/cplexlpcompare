@@ -273,6 +273,9 @@ void printCounts(std::string detail_name, std::vector<T> &vec, std::vector<T> &v
 	cout << detail_name << " First Model: " << vec.size() << endl;
 	cout << detail_name << " Second Model: " << vecother.size() << endl;
 
+	std::sort(vec.begin(), vec.end());
+	std::sort(vecother.begin(), vecother.end());
+
 	std::vector<T> set1Except2;
 	std::set_difference(vec.begin(), vec.end(), vecother.begin(), vecother.end(), std::back_inserter(set1Except2));
 
